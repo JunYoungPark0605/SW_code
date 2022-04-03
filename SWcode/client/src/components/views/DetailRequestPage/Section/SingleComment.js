@@ -1,0 +1,113 @@
+import React, { useState } from 'react'
+import { Comment, Avatar, Button, Input } from 'antd';
+import Axios from 'axios';
+import { useSelector } from 'react-redux';
+const { TextArea } = Input;
+function SingleComment(props) {
+    const user = useSelector(state => state.user);
+    const [CommentValue, setCommentValue] = useState("")
+    const [OpenReply, setOpenReply] = useState(false)
+
+    const handleChange = (e) => {
+        setCommentValue(e.currentTarget.value)
+    }
+
+    const openReply = () => {
+        setOpenReply(!OpenReply)
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        const variables = {
+            writer: user.userData._id,
+            productId: props.productId,
+            responseTo: props.comment._id,
+            content: CommentValue
+        }
+
+
+        Axios.post('/api/comment/saveComment', variables)
+            .then(response => {
+                if (response.data.success) {
+                    setCommentValue("")
+                    setOpenReply(!OpenReply)
+                    props.refreshFunction(response.data.result)
+                } else {
+                    alert('Failed to save Comment')
+                }
+            })
+    }
+
+    const actions = [
+        <span onClick={openReply} key="comment-basic-reply-to">Reply to </span>
+    ]
+
+
+    if (user.userData && !user.userData.isAuth) {
+        return (
+            <div>
+            <Comment
+                actions={actions}
+                author={props.comment.writer.name}
+                avatar={
+                    <Avatar
+                        src={props.comment.writer.image}
+                        alt="image"
+                    />
+                }
+                content={
+                    <p>
+                        {props.comment.content}
+                    </p>
+                }
+            ></Comment>
+
+
+            
+
+        </div>
+    
+          
+          
+        
+        )
+      } else{
+    return (
+        <div>
+            <Comment
+                actions={actions}
+                author={props.comment.writer.name}
+                avatar={
+                    <Avatar
+                        src={props.comment.writer.image}
+                        alt="image"
+                    />
+                }
+                content={
+                    <p>
+                        {props.comment.content}
+                    </p>
+                }
+            ></Comment>
+
+
+            {OpenReply &&
+                <form style={{ display: 'flex' }} onSubmit={onSubmit}>
+                    <TextArea
+                        style={{ width: '100%', borderRadius: '5px' }}
+                        onChange={handleChange}
+                        value={CommentValue}
+                        placeholder="write some comments"
+                    />
+                    <br />
+                    <Button style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Reply 등록</Button>
+                </form>
+            }
+
+        </div>
+    )
+}
+}
+
+export default SingleComment

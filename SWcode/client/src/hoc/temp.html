@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body{
+                background-color: rgb(241, 235, 249);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height : 100vh;
+            }
+
+            .list {
+                background-color: white;
+                border-radius: 1em;
+                border : 2px solid rgb(239, 236, 243);
+                width : 1000px;
+                padding : 40px 0 40px 0;
+                margin : 0 0 28px 0 ;
+            }
+
+            .submit > button {
+                cursor: pointer;
+            }
+            .title {
+                position : relative;
+            }
+            .title > h2{
+                margin-left: 20px;
+            }
+            .list_top_line {
+                position : relative;
+                top : -40px;
+                background-color: rgb(111, 48, 191);
+                border-top-left-radius: 1em;
+                border-top-right-radius: 1em;
+            }
+
+            .content > .content_label {
+                margin-left : 20px;
+                margin-bottom : 30px;
+                font-weight: bold;
+            }
+
+            .content > .content_value {
+                margin-left : 20px;
+            }
+
+            .content > .content_value {
+                margin-left : 20px;
+                border : none;
+                border-bottom : 1px solid #ccc;
+            }
+
+            .content > .content_value:focus {
+                outline: none;
+            }
+
+            .submit > button {
+                background-color: rgb(113, 48, 190) ;
+                border : none;
+                border-radius: 0.3em;
+                color : white;
+                width : 60px;
+                height: 32px;
+                font-size: 12px;
+            }
+            
+
+        </style>
+    </head>
+    <body>
+        <div>
+            <div class="list title">
+                <div class="list_top_line">&nbsp;</div>
+                <h2>만족도 조사</h2>
+            </div>
+            <div class="list content">
+                <div class="content_label">이메일</div>
+                <input class="content_value" placeholder="abc@gmail.com"/>
+            </div>
+            <div class="list content">
+                <div class="content_label">이름</div>
+                <input class="content_value" placeholder="내 이름"/>
+            </div>
+            <div class="submit">
+                <button>제출</button>
+            </div>
+        </div>
+    </body>
+</html>

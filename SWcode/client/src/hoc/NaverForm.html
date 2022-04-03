@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+   <head>
+      <style>
+            body{
+                display : flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height : 100vh;
+                background-color: rgb(236, 236, 236);
+            }
+            
+            header{
+                width: 100%;
+                height : 10vh;
+                display : flex;
+                justify-content: center;
+                align-items: center;
+                color : green;
+                font-family : 'Malgun Gothic';
+                font-size : 5em;
+            }
+
+            .content > main{
+                width : 1000px;
+            }
+
+            .login{
+                padding-top: 60px;
+                display: column;
+                align-items: center;
+            }
+
+            .login-textbox{
+                width: 500px;
+                height : 50px;
+                border: solid 1px black;
+                background: white;
+                margin-bottom : 10px;
+            }
+            
+            .login-textbox > input{
+                border : none;
+                width:450px;
+                margin-top: 10px;
+                font-size: 20px;
+                margin-left: 10px;
+                height: 30px;
+            }
+            .login-button > button{
+                width: 500px;
+                height :50px;
+                font-size: 20px;
+                background-color: green;
+                color: white;
+                border : solid 1px green;
+            }
+      </style>
+   </head>
+   <body>
+       <header>
+            <b>NAVER</b>
+       </header>
+       <section class="login">
+        <div class="login-textbox">	
+            <input placeholder="Username" type="text"></input>
+        </div>
+        <div class="login-textbox">	
+            <input placeholder="Password" type="password"></input>
+        </div>
+        <div class="login-button">
+            <button>Sign in</button>
+        </div>
+    </section>
+   </body>
+</html>
