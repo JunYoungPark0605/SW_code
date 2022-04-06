@@ -72,6 +72,42 @@ if (process.env.NODE_ENV === "requestion") {
 
 const port = process.env.PORT || 5000
 
+// const {spawn} = require('child_process');
+
+// app.get('/', (req, res) => {
+//   let dataToSend;
+//   const python = spawn('python3', ['test.py']);
+
+//   python.stdout.on('data', function(data) {
+//     dataToSend = data.toString();
+//   })
+//   python.on('close', (code) => {
+//    res.send(dataToSend);
+//   })
+// })
+
+const spawn = require('child_process').spawn; 
+const result = spawn('python', ['test.py']); 
+result.stdout.on('data', function(data) { 
+  console.log(data.toString()); 
+}); 
+result.stderr.on('data', function(data) { 
+  console.log(data.toString()); 
+});
+const result_01 = spawn('python', ['test.py', "userId={window.localStorage.getItem('userCount')}"])
+result_01.stdout.on('data', (result)=>{
+  console.log(result.toString)
+})
+
+
+
+
+//pCount 리액트로 전송, userCount 파이썬으로 전송
+const uCount = mongoose
+console.log('유저카운트: ' + uCount);
+
 app.listen(port, () => {
   console.log(`Server Listening on ${port}`)
 });
+
+ 

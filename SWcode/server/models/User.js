@@ -40,6 +40,10 @@ const userSchema = mongoose.Schema({
     },
     tokenExp: {
         type: Number
+    },
+    uCounter: {
+        type: Number,
+        default: 0
     }
 })
 

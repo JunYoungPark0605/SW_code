@@ -1,9 +1,19 @@
+import os
+# print(os.path.abspath(__file__))
+# print(os.path.dirname(os.path.realpath(__file__)))
+# print(os.listdir(os.getcwd()))
+# print(os.getcwd())
+os.chdir("C:\\Users\\ana23\\CWNU\\reactshopkomaster\\SWcode\\python")
+# print(os.getcwd())
+# print(os.listdir(os.getcwd()))
+
+import sys
 from math import *
 import numpy as np
 import pandas as pd
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.metrics import mean_squared_error
-# import requests, json
+# from sklearn.metrics.pairwise import cosine_similarity
+# from sklearn.metrics import mean_squared_error
+# # import requests, json
 
 # url = "http://localhost:5000"
 # data = {}
@@ -11,11 +21,11 @@ from sklearn.metrics import mean_squared_error
 # requests.post(url, data=json.dumps(data), headers=headers)
 
 # 사용자 데이터
-user_data = pd.read_csv('./user.csv')
+user_data = pd.read_csv('./user.csv', encoding='cp949')
 # 평점 데이터
-score_data = pd.read_csv('./score.csv') 
+score_data = pd.read_csv('./score.csv', encoding='cp949') 
 # 음식점 데이터
-product_data = pd.read_csv('./product.csv')
+product_data = pd.read_csv('./product.csv', encoding='cp949')
 # 비선호 가게 데이터
 dislike_data = pd.read_csv('./dislike.csv')
 
@@ -134,21 +144,20 @@ def get_unseen_books(ratings_matrix, userId):
 
 
 
-def recomm_movie_by_userid(pred_df, userId, unseen_list, top_n=3):
+def recomm_product_by_userid(userId):
+    pred_df = ratings_pred_matrix
+    top_n = 3
+    unseen_list = get_unseen_books(user_product_star, userId)
     # 예측 평점 DataFrame에서 사용자 id 인덱스와 unseen_list로 들어온 도서명 칼럼을 추출해 가장 예측 평점이 높은 순으로 정렬함.
-    recomm_books = pred_df.loc[userId, unseen_list].sort_values(ascending=False)[:top_n]
-    return recomm_books
+    recomm_products = pred_df.loc[userId, unseen_list].sort_values(ascending=False)[:top_n]
+    recomm_products = pd.DataFrame(data=recomm_products.values, index=recomm_products.index, columns=['pred_score'])
+    first = recomm_products.index.values[0]
+    print(first)
+    return recomm_products
+
+if __name__ == '__main__':
+    recomm_product_by_userid(sys.argv[1])
 
 
-
-i = int(input())
-# 사용자가 관람하지 않은 도서명 추출
-unseen_list = get_unseen_books(user_product_star, i)
-print(unseen_list)
-# 아이템 기반의 최근접 이웃 협업 필터링으로 도서 추천
-recomm_books = recomm_movie_by_userid(ratings_pred_matrix, i, unseen_list, top_n=3)
-print(recomm_books.round(3))
-# 평점 데이터를 DataFrame으로 생성
-recomm_books = pd.DataFrame(data=recomm_books.values, index=recomm_books.index, columns=['pred_score'])
-print(recomm_books.round(3))
+# i = int( userId={window.localStorage.getItem('userCount')} )      # input 자리에 userId 넣기
 
