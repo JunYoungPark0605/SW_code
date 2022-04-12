@@ -11,7 +11,7 @@ function Star(props) {
     let variable = {
         productId: props.productId,
         userId: props.userId,
-        star: Star,
+        star: Stars,
         save: Save,
     };
 
@@ -20,7 +20,8 @@ function Star(props) {
     }    
 
     useEffect(() => {
-      axios.post("api/star/getStar", variable).then((response) => {
+      axios.post("api/star/getStar", variable)
+          .then((response) => {
         if (response.data.success) {
           console.log("response.data", response.data);
 
@@ -34,8 +35,6 @@ function Star(props) {
         }
       })
     })
-
-
 
     useEffect(() => {
       axios.post("/api/star/upStar", variable).then((response) => {

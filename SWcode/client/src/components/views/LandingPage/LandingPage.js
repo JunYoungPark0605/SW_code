@@ -11,6 +11,7 @@ import SearchFeature from './Sections/SearchFeature';
 import { Categories, spots } from './Sections/Datas';
 import 고봉밥 from '../../../고봉밥.png';
 import 로고봉밥 from '../../../로고봉밥.png';
+import { useSelector } from 'react-redux';
 
 function LandingPage() {
 
@@ -24,6 +25,7 @@ function LandingPage() {
     })
     const [SearchTerm, setSearchTerm] = useState("")
 
+    
     useEffect(() => {
 
         let body = {
@@ -32,8 +34,17 @@ function LandingPage() {
         }
 
         getProducts(body)
-
+        
     }, [])
+
+    const userData = useSelector(state => state.user.userData)
+    axios.post('/api/number', userData)
+        .then(response => {
+            if(response.data.success)
+            alert(response.data)
+        })
+
+    console.log(userData)
 
     const getProducts = (body) => {
         axios.post('/api/product/products', body)

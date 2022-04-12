@@ -6,7 +6,6 @@ const { Payment } = require("../models/Payment");
 
 const { auth } = require("../middleware/auth");
 const async = require('async');
-
 //=================================
 //             User
 //=================================
@@ -20,7 +19,7 @@ router.get("/auth", auth, (req, res) => {
         name: req.user.name,
         lastname: req.user.lastname,
         role: req.user.role,
-        userCount: req.user.uCounter,
+        uCounter: req.user.uCounter,
         image: req.user.image,
         cart: req.user.cart,
         history: req.user.history
@@ -30,7 +29,6 @@ router.get("/auth", auth, (req, res) => {
 router.post("/register", (req, res) => {
 
     const user = new User(req.body);
-
     user.save((err, doc) => {
         if (err) return res.json({ success: false, err });
         return res.status(200).json({
@@ -239,6 +237,26 @@ router.post('/successBuy', auth, (req, res) => {
     )
 })
 
+let userNumber;
+// router.post('/number', (req, res) => {
+//     console.log(req.body)
+//     userNumber = req.body.uCounter
+//     console.log("userNumber: " + userNumber)
 
+//     if (err) return res.status(400).json({ success: false, err });
+//     res.status(200).json({
+//         success: true,
+//         uCounter: req.body.uCounter
+//     })
+//   })
+  const spawn = require('child_process').spawn; 
+
+  const result_01 = spawn('python', ['test.py', "userNumber"])
+  result_01.stdout.on('data', (result)=>{
+    console.log(result.toString)
+  })
+  
+  
+console.log("userNumber2 : " + userNumber)
 
 module.exports = router;

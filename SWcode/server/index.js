@@ -5,9 +5,7 @@ const cors = require('cors')
 
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-
 const config = require("./config/key");
-
 // const mongoose = require("mongoose");
 // mongoose
 //   .connect(config.mongoURI, { useNewUrlParser: true })
@@ -39,7 +37,6 @@ app.use('/api/comment', require('./routes/comment'));
 app.use('/api/like', require('./routes/like'));
 app.use('/api/request', require('./routes/request'));
 app.use('/api/star', require('./routes/star'));
-
 //use this to show the image you have in node js server to client (react js)
 //https://stackoverflow.com/questions/48914987/send-image-path-from-node-js-express-server-to-react-client
 app.use('/uploads', express.static('uploads'));
@@ -72,39 +69,27 @@ if (process.env.NODE_ENV === "requestion") {
 
 const port = process.env.PORT || 5000
 
-// const {spawn} = require('child_process');
-
-// app.get('/', (req, res) => {
-//   let dataToSend;
-//   const python = spawn('python3', ['test.py']);
-
-//   python.stdout.on('data', function(data) {
-//     dataToSend = data.toString();
-//   })
-//   python.on('close', (code) => {
-//    res.send(dataToSend);
-//   })
-// })
-
-const spawn = require('child_process').spawn; 
-const result = spawn('python', ['test.py']); 
-result.stdout.on('data', function(data) { 
-  console.log(data.toString()); 
-}); 
-result.stderr.on('data', function(data) { 
-  console.log(data.toString()); 
-});
-const result_01 = spawn('python', ['test.py', "userId={window.localStorage.getItem('userCount')}"])
-result_01.stdout.on('data', (result)=>{
-  console.log(result.toString)
+app.post('/number', (req, res) => {
+  console.log(req.body)
+  userNumber = req.body.uCounter
+  console.log("userNumber: " + userNumber)
+  
+  if (err) return res.status(400).json({ success: false, err });
+  res.status(200).json({
+      success: true,
+      uCounter: req.body.uCounter
+  })
 })
 
+// const spawn = require('child_process').spawn; 
 
+// const result_01 = spawn('python', ['test.py', "userNumber"])
+// result_01.stdout.on('data', (result)=>{
+//   console.log(result.toString)
+// })
 
 
 //pCount 리액트로 전송, userCount 파이썬으로 전송
-const uCount = mongoose
-console.log('유저카운트: ' + uCount);
 
 app.listen(port, () => {
   console.log(`Server Listening on ${port}`)

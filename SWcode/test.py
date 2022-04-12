@@ -6,13 +6,13 @@ import os
 os.chdir("C:\\Users\\ana23\\CWNU\\reactshopkomaster\\SWcode\\python")
 # print(os.getcwd())
 # print(os.listdir(os.getcwd()))
-
+import random
 import sys
 from math import *
 import numpy as np
 import pandas as pd
-# from sklearn.metrics.pairwise import cosine_similarity
-# from sklearn.metrics import mean_squared_error
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.metrics import mean_squared_error
 # # import requests, json
 
 # url = "http://localhost:5000"
@@ -143,21 +143,36 @@ def get_unseen_books(ratings_matrix, userId):
 
 
 
+user_list = ratings_pred_matrix.index.values.tolist()
+product_list = product_data.values.tolist()
+product_list = sum(product_list, [])
+r_product = random.choice(product_list)
 
 def recomm_product_by_userid(userId):
-    pred_df = ratings_pred_matrix
-    top_n = 3
-    unseen_list = get_unseen_books(user_product_star, userId)
     # 예측 평점 DataFrame에서 사용자 id 인덱스와 unseen_list로 들어온 도서명 칼럼을 추출해 가장 예측 평점이 높은 순으로 정렬함.
-    recomm_products = pred_df.loc[userId, unseen_list].sort_values(ascending=False)[:top_n]
-    recomm_products = pd.DataFrame(data=recomm_products.values, index=recomm_products.index, columns=['pred_score'])
-    first = recomm_products.index.values[0]
-    print(first)
-    return recomm_products
+    pred_df = ratings_pred_matrix
+    top_n=3
+    unseen_list = get_unseen_books(user_product_star, userId)
+    recomm_product = pred_df.loc[userId, unseen_list].sort_values(ascending=False)[:top_n]
 
-if __name__ == '__main__':
-    recomm_product_by_userid(sys.argv[1])
+    
+    rp = recomm_product.index.values.tolist()
+    if len(rp) == 0:
+        print(r_product)
+        return r_product
+    else :
+        first = recomm_product.index.values[0]
+        print(first)
+        return first
 
+if __name__ == "__main__":
+    # if int(sys.argv[1] not in real.dUser):
+        if int(sys.argv[1]) in user_list:
+            recomm_product_by_userid(int(sys.argv[1]))
 
-# i = int( userId={window.localStorage.getItem('userCount')} )      # input 자리에 userId 넣기
+        else:
+            print(r_product)
 
+    # elif int(sys.argv[1] in real.dUser):
+        # if real.dProduct == recomm_product_by_userid(int(sys.argv[1])):
+            # print("예외")

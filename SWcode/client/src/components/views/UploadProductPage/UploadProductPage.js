@@ -60,10 +60,6 @@ function UploadProductPage(props) {
         setSpots(event.currentTarget.value)
     }
 
-    const spotsChangeHandler = (event) => {
-        setSpots(event.currentTarget.value)
-    }
-
     const updateImages = (newImages) => {
         setImages(newImages)
     }
